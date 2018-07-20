@@ -1,18 +1,28 @@
 version: 2
 
 jobs:
-  benchmark_machine:
-    machine: true
-    steps:
-      - run:
-          name: Install Geekbench
-          command: |
-            wget http://cdn.geekbench.com/Geekbench-4.2.2-Linux.tar.gz
-            tar xzvf Geekbench-4.2.2-Linux.tar.gz
-            sudo chmod +x geekbench4
-            /geekbench4
+    benchmark_machine:
+        machine: true
+        steps:
+        - run:
+            name: Install/Run Geekbench on the raw machine
+            command: ./install_run_geekbench.sh
+    benchmark_limited_container:
+        machine: true
+        steps:
+        - run:
+            name: Install/Run Geekbench on a limited CPU container, with no swap
+            command: |
+                docker run \
+                    -it --rm \
+                    --cpus=".5" \
+                    --memory="2000m" \
+                    --memory-swap="2000m" \
+                    circleci/build-image \
+                    ./install_run_geekbench.sh
 workflows:
   version: 2
   benchmark_machine:
     jobs:
       - benchmark_machine
+      - benchmark_limited_container
