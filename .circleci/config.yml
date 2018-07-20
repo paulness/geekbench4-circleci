@@ -20,8 +20,7 @@ jobs:
                     -it --rm \
                     --cpus=".5" \
                     --memory="2000m" \
-                    --memory-swap="2000m" \
-                    alpine \
+                    ubuntu \
                     /geekbench/geekbench4
 workflows:
   version: 2
