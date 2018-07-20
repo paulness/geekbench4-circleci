@@ -1,0 +1,18 @@
+version: 2
+
+jobs:
+  benchmark_machine:
+    machine: true
+    steps:
+      - run:
+          name: Install Geekbench
+          command: |
+            wget http://cdn.geekbench.com/Geekbench-4.2.2-Linux.tar.gz
+            tar xzvf Geekbench-4.2.2-Linux.tar.gz
+            sudo chmod +x geekbench4
+            /geekbench4
+workflows:
+  version: 2
+  benchmark_machine:
+    jobs:
+      - benchmark_machine
