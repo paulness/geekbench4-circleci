@@ -7,7 +7,7 @@ jobs:
         - checkout
         - run:
             name: Install/Run Geekbench on the raw machine
-            command: ./install_run_geekbench.sh
+            command: ./geekbench/geekbench4
     benchmark_limited_container:
         machine: true
         steps:
@@ -16,12 +16,13 @@ jobs:
             name: Install/Run Geekbench on a limited CPU container, with no swap
             command: |
                 docker run \
+                    -v $(pwd)/geekbench:/geekbench \
                     -it --rm \
                     --cpus=".5" \
                     --memory="2000m" \
                     --memory-swap="2000m" \
-                    circleci/build-image \
-                    ./install_run_geekbench.sh
+                    alpine \
+                    /geekbench/geekbench4
 workflows:
   version: 2
   benchmark_machine:
