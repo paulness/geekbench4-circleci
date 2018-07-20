@@ -7,7 +7,16 @@ jobs:
         - checkout
         - run:
             name: Install/Run Geekbench on the raw machine
-            command: ./geekbench/geekbench4
+            command: |
+                mkdir logs
+                ./geekbench/geekbench4 > logs/export-results-1.txt &
+                ./geekbench/geekbench4 > logs/export-results-2.txt &
+                ./geekbench/geekbench4 > logs/export-results-3.txt &
+                ./geekbench/geekbench4 > logs/export-results-4.txt &
+
+                wait
+        - store_artifacts:
+            path: logs
     benchmark_limited_container:
         machine: true
         steps:
@@ -26,5 +35,5 @@ workflows:
   version: 2
   benchmark_machine:
     jobs:
-      #- benchmark_machine
-      - benchmark_limited_container
+      - benchmark_machine
+      #- benchmark_limited_container
