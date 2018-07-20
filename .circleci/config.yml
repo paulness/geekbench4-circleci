@@ -11,8 +11,6 @@ jobs:
                 mkdir logs
                 ./geekbench/geekbench4 > logs/export-results-1.txt &
                 ./geekbench/geekbench4 > logs/export-results-2.txt &
-                ./geekbench/geekbench4 > logs/export-results-3.txt &
-                ./geekbench/geekbench4 > logs/export-results-4.txt &
 
                 wait
         - store_artifacts:
