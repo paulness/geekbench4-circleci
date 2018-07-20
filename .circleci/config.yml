@@ -18,13 +18,13 @@ jobs:
                 docker run \
                     -v $(pwd)/geekbench:/geekbench \
                     -it --rm \
-                    --cpus=".5" \
-                    --memory="2000m" \
+                    --cpus=".1" \
+                    --memory="500m" \
                     ubuntu \
                     /geekbench/geekbench4
 workflows:
   version: 2
   benchmark_machine:
     jobs:
-      - benchmark_machine
+      #- benchmark_machine
       - benchmark_limited_container
